@@ -141,12 +141,51 @@ const Tree = {
         }
         return result;
         
+    },
+    setLevelLeaf(arr, parentLevel = 0) {
+        let count = 0;
+        let deep = parentLevel+1;
+        arr.forEach(item => {
+            item.level = parentLevel + 1;
+            item.leafCount = 0;
+            if (this._hasChildren(item)) {
+                const { count: c, deep: d } = this.setLevelLeaf(item.children, item.level);
+                item.leafCount += c;
+                count += c;
+                deep = Math.max(deep, d);
+                // count += this.setLevelLeaf(item.children, item.level);
+            } else {
+                item.leafCount = 1;
+                count += 1;
+            }
+            // if (this.hasChildren(item)) {
+            //     item.children.forEach(xx => {
+            //         if (!this.hasChildren(xxx)) {
+            //             conut += 1;
+
+            //         } else {
+            //             walk(xxx, count);
+            //         }
+            //     })
+            // } else {
+            //     count = 1;
+            // }
+        });
+        return {
+            count,
+            deep
+        };
     }
+    
 }
 
-let array = Tree.toArray(input.first, false);
+// let array = Tree.toArray(input.first, false);
 
-let node = Tree.arrToNode(array, -1);
+// let node = Tree.arrToNode(array, -1);
 
-let parent = Tree.getParentById1([input.first], 13);
-console.log(parent)
+// let parent = Tree.getParentById1([input.first], 13);
+// console.log(parent)
+let inp = [input.second];
+console.log(Tree.setLevelLeaf(inp))
+console.dir(input.second);
+console.log(inp);
