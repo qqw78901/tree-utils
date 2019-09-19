@@ -9,6 +9,6 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceFolder}\\Tree.js"
-        }
+        },
     ]
 }
